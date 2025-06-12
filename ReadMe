@@ -1,0 +1,144 @@
+Book Management & Review System API
+A robust and feature-rich REST API for managing books and user reviews, built with a modern tech stack and fully containerized with Docker for easy deployment and scalability.
+
+🌟 Key Features
+Full CRUD Operations for Books: Create, Read, Update, and Delete books.
+
+User Authentication: Secure endpoints with user registration and login functionality.
+
+Book Review System: Authenticated users can post reviews (comment and rating) for any book.
+
+Advanced Data Aggregation: The GET /api/books endpoint uses a powerful MongoDB aggregation pipeline to deliver rich, nested data including:
+
+List of all books.
+
+Calculated overall rating and review count for each book.
+
+A clean reviewSection with a list of all reviews.
+
+Populated user details for both the book's creator and each reviewer.
+
+Clean & Consistent API Response: All API responses are standardized for a predictable developer experience.
+
+Dockerized: Comes with a multi-stage Dockerfile for building a lightweight, production-ready image.
+
+🛠️ Tech Stack
+Backend: Node.js, Express.js
+
+Language: TypeScript
+
+Database: MongoDB with Mongoose ODM
+
+Containerization: Docker
+
+🚀 Getting Started
+Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
+
+Prerequisites
+You need to have the following software installed on your machine:
+
+Node.js (v16 or higher recommended)
+
+npm or Yarn
+
+MongoDB (running locally) or a MongoDB Atlas cluster
+
+Docker (for running the containerized version)
+
+1. Local Installation & Setup
+Clone the repository:
+
+git clone https://github.com/ZaimIftikhar786/Book-Management-System.git
+cd Book-Management-System
+
+Install dependencies:
+
+npm install
+
+Set up environment variables:
+Create a .env file in the root directory and add the following variables.
+
+PORT=8000
+MONGODB_URI="mongodb://localhost:27017/book_management"
+
+Replace the MONGODB_URI with your own if you are using a different local database name or MongoDB Atlas.
+
+Run the application in development mode:
+This will start the server with ts-node-dev, which automatically restarts on file changes.
+
+npm run dev
+
+The server should now be running at http://localhost:8000.
+
+2. Running with Docker
+This is the recommended way to run the application in a production-like environment.
+
+Build the Docker image:
+From the root directory, run:
+
+docker build -t book-management-api .
+
+Run the Docker container:
+Make sure your .env file is set up as described in the local installation.
+
+If your MongoDB is running locally on your machine, use host.docker.internal in your MONGODB_URI inside the .env file to allow the container to connect to it:
+MONGODB_URI="mongodb://host.docker.internal:27017/book_management"
+
+Run the container with the following command:
+
+docker run -p 8000:8000 --env-file ./.env --name book-api-container book-management-api
+
+The application is now running inside a Docker container and is accessible at http://localhost:8000.
+
+📖 API Endpoints
+Here is a list of the available API routes.
+
+User Authentication
+POST /api/users/register
+
+Description: Registers a new user.
+
+Body: { "name": "Test User", "email": "test@example.com", "password": "password123" }
+
+POST /api/users/login
+
+Description: Logs in a user and returns an authentication token.
+
+Body: { "email": "test@example.com", "password": "password123" }
+
+Books
+GET /api/books
+
+Description: Retrieves a list of all books with detailed, aggregated review and creator data.
+
+POST /api/books
+
+Description: Creates a new book. Requires authentication.
+
+Body: { "title": "New Book Title", "author": "Author Name", "publishedDate": "2025-01-01" }
+
+PUT /api/books/:id
+
+Description: Updates an existing book. Requires authentication.
+
+Params: id - The ID of the book to update.
+
+Body: { "title": "Updated Title" }
+
+DELETE /api/books/:id
+
+Description: Deletes a book. Requires authentication.
+
+Params: id - The ID of the book to delete.
+
+Reviews
+POST /api/reviews/:bookId
+
+Description: Adds a review to a specific book. Requires authentication.
+
+Params: bookId - The ID of the book to review.
+
+Body: { "comment": "This was a great book!", "rating": 5 }
+
+✍️ Author
+Zaim Iftikhar - GitHub

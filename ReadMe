@@ -94,30 +94,34 @@ The application is now running inside a Docker container and is accessible at ht
 Here is a list of the available API routes.
 
 User Authentication
-POST /api/users/register
+POST /auth/signup
 
 Description: Registers a new user.
 
 Body: { "name": "Test User", "email": "test@example.com", "password": "password123" }
 
-POST /api/users/login
+POST /auth/login
 
 Description: Logs in a user and returns an authentication token.
 
 Body: { "email": "test@example.com", "password": "password123" }
 
+Description: Logout User
+
+POST /auth/logout
+
 Books
-GET /api/books
+GET /books
 
 Description: Retrieves a list of all books with detailed, aggregated review and creator data.
 
-POST /api/books
+POST /book
 
 Description: Creates a new book. Requires authentication.
 
-Body: { "title": "New Book Title", "author": "Author Name", "publishedDate": "2025-01-01" }
+Body: { "title": "New Book Title", "author": "Author Name", "publishedDate": "2025-01-01", "data':"New Book data" }
 
-PUT /api/books/:id
+PUT /book/:id
 
 Description: Updates an existing book. Requires authentication.
 
@@ -125,14 +129,14 @@ Params: id - The ID of the book to update.
 
 Body: { "title": "Updated Title" }
 
-DELETE /api/books/:id
+DELETE /books/:id
 
 Description: Deletes a book. Requires authentication.
 
 Params: id - The ID of the book to delete.
 
 Reviews
-POST /api/reviews/:bookId
+POST /review/:bookId/reviews
 
 Description: Adds a review to a specific book. Requires authentication.
 
